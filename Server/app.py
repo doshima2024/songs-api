@@ -9,6 +9,8 @@ app.config["JSON_COMPACT"] = False # For debugging purposes
 
 db = SQLAlchemy(app)
 
+from models import *
+
 @app.route('/')
 def home():
     return 'You are home.'
@@ -16,3 +18,4 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
