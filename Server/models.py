@@ -1,4 +1,4 @@
-from app import db 
+from extensions import db 
 
 class Song(db.Model):
     __tablename__ = "songs"
@@ -14,5 +14,5 @@ class Song(db.Model):
         self.clone_count = clone_count
 
     def __repr__(self):
-        return f"<Song with ID: {self.id} is called {self.name}, has a rating of {self.rating} and has been clones {self.clone_count} times>"
+        return f"<Song with ID: {self.id} is called {self.name}, has a rating of {self.rating} and has been cloned {self.clone_count} times>"
     

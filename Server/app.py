@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db
 
 app = Flask(__name__)
 
@@ -7,9 +7,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///songs.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False # Turning off old, extra feature: for performance and console cleanup
 app.config["JSON_COMPACT"] = False # For debugging purposes
 
-db = SQLAlchemy(app)
+db.init_app(app)
 
-from models import Song
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
