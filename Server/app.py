@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, jsonify
+from models import Song
 from extensions import db
 
 app = Flask(__name__)
@@ -15,6 +16,15 @@ with app.app_context():
 @app.route('/')
 def home():
     return 'You are home.'
+
+@app.route('/songs')
+def get_songs():
+    try:
+        songs = Song.query.all()
+        return jsonify([song.to_dict() for song in songs])
+    except Exception as exception:
+        return jsonify({'error': str(exception)}), 500 
+
 
 
 if __name__ == '__main__':

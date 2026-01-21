@@ -16,3 +16,5 @@ class Song(db.Model):
     def __repr__(self):
         return f"<Song with ID: {self.id} is called {self.name}, has a rating of {self.rating} and has been cloned {self.clone_count} times>"
     
+    def to_dict(self):
+        return {'id': self.id, 'name': self.name, 'rating': self.rating, 'clone_count': self.clone_count }
