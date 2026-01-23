@@ -45,9 +45,18 @@ def create_song():
         return jsonify(new_entry.to_dict()), 201 # return JSON
     except Exception as exception:
         return ({'error adding song': str(exception)}), 500
-
-
-
+    
+@app.delete('/songs/<int:id>')
+def delete_song(id):
+    song_to_delete = Song.query.filter(Song.id == id).first()
+    if song_to_delete is None:
+        return ({"error": "No song matching the specification found"}), 404
+    try:
+        db.session.delete(song_to_delete)
+        db.session.commit()
+        return '', 204
+    except Exception as exception:
+        return({"error": str(exception)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
