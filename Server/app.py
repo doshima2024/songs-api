@@ -57,6 +57,29 @@ def delete_song(id):
         return '', 204
     except Exception as exception:
         return({"error": str(exception)}), 500
+    
+@app.patch('/songs/<int:id>')
+def update_song(id):
+    #get the incoming JSON data from the request and parse it into a Python dict
+    #find song to be updated, if song not found return a 404
+    #modify song to have new rating and new name (if they're passed in) - do you pass these in from in the arguments of the function?
+    #commit() 
+    #return the updated song.to_dict, with aa 200 ? status code
+    data = request.json
+    name = data.get("name")
+    rating = data.get("rating")
+    song_to_update = Song.query.filter(Song.id == id).first()
+    if song_to_update is None:
+        return jsonify({"error": "Song not found"})
+    try:
+        song_to_update.rating = rating
+        song_to_update.name = name
+        db.session.commit()
+        return jsonify(song_to_update.to_dict()), 200
+    except Exception as exception:
+        return jsonify({"error": str(exception)})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
