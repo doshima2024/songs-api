@@ -44,7 +44,7 @@ def create_song():
         db.session.commit()               
         return jsonify(new_entry.to_dict()), 201 # return JSON
     except Exception as exception:
-        return ({'error adding song': str(exception)}), 500
+        return jsonify({'error adding song': str(exception)}), 500
     
 @app.delete('/songs/<int:id>')
 def delete_song(id):
