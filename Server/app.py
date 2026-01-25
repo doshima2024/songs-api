@@ -44,19 +44,19 @@ def create_song():
         db.session.commit()               
         return jsonify(new_entry.to_dict()), 201 # return JSON
     except Exception as exception:
-        return jsonify({'error adding song': str(exception)}), 500
+        return jsonify({'error': str(exception)}), 500
     
 @app.delete('/songs/<int:id>')
 def delete_song(id):
     song_to_delete = Song.query.filter(Song.id == id).first()
     if song_to_delete is None:
-        return ({"error": "No song matching the specification found"}), 404
+        return jsonify({"error": "No song matching the specification found"}), 404
     try:
         db.session.delete(song_to_delete)
         db.session.commit()
         return '', 204
     except Exception as exception:
-        return({"error": str(exception)}), 500
+        return jsonify({"error": str(exception)}), 500
     
 @app.patch('/songs/<int:id>')
 def update_song(id):

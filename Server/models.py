@@ -1,6 +1,6 @@
 from extensions import db 
 
-class Song(db.Model):
+class Song(db.Model): # drawing on or inheriting from the db.Model class allows us to use __tablename__, have PK relationships, and what ellse?
     __tablename__ = "songs"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -10,7 +10,7 @@ class Song(db.Model):
 
     def __init__(self, name, rating=0, clone_count=0):
         self.name = name
-        self.rating=rating
+        self.rating = rating
         self.clone_count = clone_count
 
     def __repr__(self):
