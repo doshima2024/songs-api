@@ -1,6 +1,6 @@
 from extensions import db 
 
-class Song(db.Model): # drawing on or inheriting from the db.Model class allows us to use __tablename__, have PK relationships, and what ellse?
+class Song(db.Model): 
     __tablename__ = "songs"
 
     id = db.Column(db.Integer, primary_key=True)
